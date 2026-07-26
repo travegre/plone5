@@ -1,0 +1,16 @@
+ZopeUndo/Prefix.py,sha256=54AVoKK-x4_pZJHexqIoe63Kv-StYpxWFWegKMrJfqs,1606
+ZopeUndo/__init__.py,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+ZopeUndo/__pycache__/Prefix.cpython-38.pyc,,
+ZopeUndo/__pycache__/__init__.cpython-38.pyc,,
+ZopeUndo/tests/__init__.py,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+ZopeUndo/tests/__pycache__/__init__.cpython-38.pyc,,
+ZopeUndo/tests/__pycache__/test_prefix.cpython-38.pyc,,
+ZopeUndo/tests/test_prefix.py,sha256=-wq5EWrqqiBHjneD0uNbythU6Acvd1ZBkNDrljRztrQ,1927
+zopeundo-4.3.dist-info/INSTALLER,sha256=zuuue4knoyJ-UwPPXg8fezS7VCrXJQrAP7zeNuwvFQg,4
+zopeundo-4.3.dist-info/LICENSE.txt,sha256=PmcdsR32h1FswdtbPWXkqjg-rKPCDOo_r1Og9zNdCjw,2070
+zopeundo-4.3.dist-info/METADATA,sha256=nR81Y5SENZSx4ETOrvvKsbXPKWjGWjIMeStxC-oWw20,1954
+zopeundo-4.3.dist-info/RECORD,,
+zopeundo-4.3.dist-info/REQUESTED,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+zopeundo-4.3.dist-info/WHEEL,sha256=BNRMDyzLkkcmlv0J8ppDQkk2VED33SesJDynr9ED1gc,91
+zopeundo-4.3.dist-info/direct_url.json,sha256=Y6cme9SUK81d-AzVLFtYVpdw4YHWCfUNviaLzm7srz4,253
+zopeundo-4.3.dist-info/top_level.txt,sha256=XuhAAIkEMuj6lTSA_KzeAsMHvw43yOn-8LvCChFd7Lo,9

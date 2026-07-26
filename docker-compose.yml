@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  instance:
+    build: .
+    container_name: plone-instance
+    command: ["/opt/instance/bin/instance", "fg"]
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/opt/instance
+      - ./src:/opt/instance/src
+      - ./buildout.cfg:/opt/instance/buildout.cfg:ro
+    environment:
+      LANG: "C.UTF-8"
+      LC_ALL: "C.UTF-8"
+      RUN_BUILDOUT: "0"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+networks:
+  default:
+    driver: bridge

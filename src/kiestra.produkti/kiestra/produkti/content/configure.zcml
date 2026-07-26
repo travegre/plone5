@@ -1,0 +1,7 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="kiestra.produkti">
+
+  <!-- Dexterity content types are registered via the FTI in profiles/default/types/ -->
+
+</configure>
