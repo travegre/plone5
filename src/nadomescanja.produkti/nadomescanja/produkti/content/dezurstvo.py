@@ -96,8 +96,11 @@ class dezurstvo(Container):
         do = '.'.join(reversed(last_day.Date().split('/')))
         title = 'Izpis: {} - {}'.format(od, do)
         if oseba:
-            person = self.restrictedTraverse('dezurstva/seznam_zaposlenih/{}'.format(oseba)).Title()
-            title = '{} za osebo {}'.format(title, person)
+            try:
+                person = self.restrictedTraverse('dezurstva/seznam_zaposlenih/{}'.format(oseba)).Title()
+                title = '{} za osebo {}'.format(title, person)
+            except Exception:
+                title = '{} za osebo {}'.format(title, oseba)
         sheet.write(0, 0, title)
 
         row_index = 2
@@ -120,7 +123,8 @@ class dezurstvo(Container):
         output = BytesIO()
         workbook.save(output)
 
-        response = self.REQUEST.RESPONSE
+        request = getattr(self, 'request', self.REQUEST)
+        response = request.RESPONSE
         response.setHeader("Content-type", "application/vnd.ms-excel")
         od = '_'.join(reversed(first_day.Date().split('/')))
         do = '_'.join(reversed(last_day.Date().split('/')))
