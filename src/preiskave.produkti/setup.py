@@ -57,6 +57,7 @@ setup(name='preiskave.produkti',
       install_requires=['setuptools',
                         # -*- Extra requirements: -*-
                         'plone.api',
+                        'openpyxl',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),

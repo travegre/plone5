@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<portlets xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+  <blacklist manager="plone.leftcolumn" category="group" status="block"/>
+  <blacklist manager="plone.rightcolumn" category="group" status="block"/>
+  <blacklist manager="plone.leftcolumn" category="content_type" status="block"/>
+  <blacklist manager="plone.rightcolumn" category="content_type" status="block"/>
+</portlets>
