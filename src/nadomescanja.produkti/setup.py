@@ -10,6 +10,9 @@ def read(*parts):
         return handle.read()
 
 
+tests_require = ['zope.testing']
+
+
 setup(
     name='nadomescanja.produkti',
     version='1.0',
@@ -34,6 +37,9 @@ setup(
         'plone.api',
         'xlwt',
     ],
+    tests_require=tests_require,
+    extras_require={'tests': tests_require},
+    test_suite='nadomescanja.produkti.tests.test_doctest.test_suite',
     entry_points="""
     [z3c.autoinclude.plugin]
     target = plone
