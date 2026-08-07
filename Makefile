@@ -35,10 +35,10 @@ up: init
 down:
 	docker compose down
 
-## Full reset: stop, wipe data dirs, re-init, rebuild, and run buildout.
+## Full reset: stop, wipe data dirs, re-init, rebuild image (no cache), and run buildout.
 clean: down
 	@echo "Wiping data directories..."
-	@rm -rf $(DATA_DIRS)
+	@sudo rm -rf $(DATA_DIRS)
 	$(MAKE) init
-	$(MAKE) build
+	docker compose build --no-cache
 	$(MAKE) buildout
