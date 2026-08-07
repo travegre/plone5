@@ -1,8 +1,5 @@
 # Plone 5 Docker helpers
-# Run 'make up' instead of 'docker compose up' to ensure correct directory ownership.
-
-UID := $(shell id -u)
-GID := $(shell id -g)
+# Run 'make up' instead of 'docker-compose up' to ensure correct directory ownership.
 
 # Plone container runs as UID 1000 (plone user baked into the image).
 PLONE_UID := 1000
@@ -40,5 +37,5 @@ clean: down
 	@echo "Wiping data directories..."
 	@sudo rm -rf $(DATA_DIRS)
 	$(MAKE) init
-	docker compose build --no-cache
+	docker-compose build --no-cache
 	$(MAKE) buildout
