@@ -13,15 +13,14 @@ services:
       - ./data/parts:/opt/instance/parts
       - ./data/downloads:/opt/instance/downloads
       # NOTE: venv is intentionally NOT mounted — it is baked into the image.
-      # Mounting ./data/venv here would shadow the image venv and cause
-      # "Permission denied: pyvenv.cfg" errors on first start.
       - ./src:/opt/instance/src
       - ./buildout.cfg:/opt/instance/buildout.cfg:ro
     environment:
       LANG: "C.UTF-8"
       LC_ALL: "C.UTF-8"
-      RUN_BUILDOUT: "0"
-      PLONE_ADMIN_PASSWORD: "${PLONE_ADMIN_PASSWORD:-admin}"
+      # Can be overridden from the host: RUN_BUILDOUT=1 docker-compose up
+      RUN_BUILDOUT: "${RUN_BUILDOUT:-0}"
+      PLONE_ADMIN_PASSWORD: "admin"
     restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "python3 -c \"import urllib.request; urllib.request.urlopen('http://localhost:8080/')\" || exit 1"]
