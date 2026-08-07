@@ -21,19 +21,19 @@ init:
 
 ## Build the Docker image.
 build:
-	docker compose build
+	docker-compose build
 
 ## Run buildout (first time or after adding eggs).
 buildout: init
-	RUN_BUILDOUT=1 docker compose up
+	RUN_BUILDOUT=1 docker-compose up
 
 ## Normal start (skips buildout if already done).
 up: init
-	docker compose up
+	docker-compose up
 
 ## Stop containers.
 down:
-	docker compose down
+	docker-compose down
 
 ## Full reset: stop, wipe data dirs, re-init, rebuild, and run buildout.
 clean: down

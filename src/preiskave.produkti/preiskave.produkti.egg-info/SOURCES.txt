@@ -27,7 +27,6 @@ preiskave/produkti/interfaces/imipreiskava.py
 preiskave/produkti/interfaces/imiuvozipreiskavo.py
 preiskave/produkti/portlets/__init__.py
 preiskave/produkti/portlets/configure.zcml
-preiskave/produkti/profiles/default/factorytool.xml
 preiskave/produkti/profiles/default/metadata.xml
 preiskave/produkti/profiles/default/portlets.xml
 preiskave/produkti/profiles/default/rolemap.xml

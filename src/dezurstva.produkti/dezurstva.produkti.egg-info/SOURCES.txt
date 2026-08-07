@@ -28,7 +28,6 @@ dezurstva/produkti/interfaces/dezurstvo.py
 dezurstva/produkti/interfaces/seznam_zaposlenih.py
 dezurstva/produkti/portlets/__init__.py
 dezurstva/produkti/portlets/configure.zcml
-dezurstva/produkti/profiles/default/factorytool.xml
 dezurstva/produkti/profiles/default/metadata.xml
 dezurstva/produkti/profiles/default/portlets.xml
 dezurstva/produkti/profiles/default/rolemap.xml
