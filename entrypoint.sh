@@ -25,10 +25,11 @@ cd "${PLONE_HOME}"
 if [ ! -x "${BUILDOUT_BIN}" ]; then
   echo "Virtualenv or buildout binary not found; creating venv and installing buildout tooling..."
   python3 -m venv "${VENV_DIR}"
-  "${VENV_DIR}/bin/pip" install --upgrade "pip<23"
+  "${VENV_DIR}/bin/pip" install "pip==23.2.1"
   "${VENV_DIR}/bin/pip" install --no-cache-dir \
+      "setuptools==65.7.0" \
       "wheel==0.38.4" \
-      "zc.buildout==2.13.8" \
+      "zc.buildout==3.0.1" \
       "collective.recipe.environment"
 fi
 
