@@ -1,8 +1,5 @@
 # Plone 5 Docker helpers
-# Run 'make up' instead of 'docker compose up' to ensure correct directory ownership.
-
-UID := $(shell id -u)
-GID := $(shell id -g)
+# Run 'make up' instead of 'docker-compose up' to ensure correct directory ownership.
 
 # Plone container runs as UID 1000 (plone user baked into the image).
 PLONE_UID := 1000
@@ -21,24 +18,24 @@ init:
 
 ## Build the Docker image.
 build:
-	docker compose build
+	docker-compose build
 
 ## Run buildout (first time or after adding eggs).
 buildout: init
-	RUN_BUILDOUT=1 docker compose up
+	RUN_BUILDOUT=1 docker-compose up
 
 ## Normal start (skips buildout if already done).
 up: init
-	docker compose up
+	docker-compose up
 
 ## Stop containers.
 down:
-	docker compose down
+	docker-compose down
 
 ## Full reset: stop, wipe data dirs, re-init, rebuild image (no cache), and run buildout.
 clean: down
 	@echo "Wiping data directories..."
 	@sudo rm -rf $(DATA_DIRS)
 	$(MAKE) init
-	docker compose build --no-cache
+	docker-compose build --no-cache
 	$(MAKE) buildout
