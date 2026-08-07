@@ -8,7 +8,7 @@ set -euo pipefail
 #
 # Requirements:
 # - Host-mounted volumes (./data/*) must be writable by UID 1000 (plone user).
-#   Run: chown -R 1000:1000 ./data ./src   on the host before first start.
+#   Run: make init   on the host before first start.
 
 PLONE_HOME="/opt/instance"
 VENV_DIR="${PLONE_HOME}/venv"
@@ -39,12 +39,12 @@ fi
 if [ "${RUN_BUILDOUT:-0}" = "1" ] || [ ! -d "${PARTS_DIR}" ] || [ -z "$(ls -A "${PARTS_DIR}" 2>/dev/null || true)" ]; then
   echo "Running buildout (RUN_BUILDOUT=${RUN_BUILDOUT:-0})..."
 
-  # Remove any partial/stale egg directories left by a previously interrupted
-  # buildout run. zc.buildout uses os.rename() which fails with ENOTEMPTY
-  # when the destination already exists (even if incomplete).
+  # Wipe the entire eggs directory to eliminate any stale/partial eggs
+  # left by a previously interrupted buildout run. zc.buildout's os.rename()
+  # fails with ENOTEMPTY or AssertionError when partial eggs are present.
   if [ -d "${EGGS_DIR}" ]; then
-    echo "Cleaning stale temporary egg directories in ${EGGS_DIR}..."
-    find "${EGGS_DIR}" -maxdepth 1 -name 'tmp*' -type d -exec rm -rf {} + 2>/dev/null || true
+    echo "Wiping eggs directory to prevent stale egg conflicts..."
+    find "${EGGS_DIR}" -mindepth 1 -not -name '.gitkeep' -delete 2>/dev/null || true
   fi
 
   # Fail loudly on buildout error
