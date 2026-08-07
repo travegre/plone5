@@ -29,14 +29,15 @@ RUN chmod +x ${PLONE_HOME}/entrypoint.sh
 USER plone
 
 # Create virtualenv and install pinned buildout tooling only.
-# zc.buildout==2.13.8 requires setuptools<52, so we let it pull in
-# a compatible setuptools version instead of pinning it ourselves.
+# Keep these in sync with Plone 5.2.14 Python 3 pins:
+# setuptools==65.7.0, zc.buildout==3.0.1, wheel==0.38.4
 # Do NOT run buildout at image build time.
 RUN python3 -m venv ./venv && \
-    ./venv/bin/pip install --upgrade "pip<23" && \
+    ./venv/bin/pip install "pip==23.2.1" && \
     ./venv/bin/pip install --no-cache-dir \
+        "setuptools==65.7.0" \
         "wheel==0.38.4" \
-        "zc.buildout==2.13.8" \
+        "zc.buildout==3.0.1" \
         "collective.recipe.environment"
 
 EXPOSE 8080
