@@ -27,7 +27,6 @@ if [ ! -x "${BUILDOUT_BIN}" ]; then
   python3 -m venv "${VENV_DIR}"
   "${VENV_DIR}/bin/pip" install --upgrade "pip<23"
   "${VENV_DIR}/bin/pip" install --no-cache-dir \
-      "setuptools==65.7.0" \
       "wheel==0.38.4" \
       "zc.buildout==2.13.8" \
       "collective.recipe.environment"
@@ -40,7 +39,7 @@ if [ "${RUN_BUILDOUT:-0}" = "1" ] || [ ! -d "${PARTS_DIR}" ] || [ -z "$(ls -A "$
   echo "Running buildout (RUN_BUILDOUT=${RUN_BUILDOUT:-0})..."
 
   # Remove any partial/stale egg directories left by a previously interrupted
-  # buildout run.  zc.buildout uses os.rename() which fails with ENOTEMPTY
+  # buildout run. zc.buildout uses os.rename() which fails with ENOTEMPTY
   # when the destination already exists (even if incomplete).
   if [ -d "${EGGS_DIR}" ]; then
     echo "Cleaning stale temporary egg directories in ${EGGS_DIR}..."
