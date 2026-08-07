@@ -8,18 +8,23 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./data:/opt/instance
+      - ./data/var:/opt/instance/var
+      - ./data/eggs:/opt/instance/eggs
+      - ./data/parts:/opt/instance/parts
+      - ./data/downloads:/opt/instance/downloads
+      - ./data/venv:/opt/instance/venv
       - ./src:/opt/instance/src
       - ./buildout.cfg:/opt/instance/buildout.cfg:ro
     environment:
       LANG: "C.UTF-8"
       LC_ALL: "C.UTF-8"
       RUN_BUILDOUT: "0"
+      PLONE_ADMIN_PASSWORD: "${PLONE_ADMIN_PASSWORD:-admin}"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8080/ || exit 1"]
+      test: ["CMD-SHELL", "python3 -c \"import urllib.request; urllib.request.urlopen('http://localhost:8080/')\" || exit 1"]
       interval: 30s
-      timeout: 5s
+      timeout: 10s
       retries: 5
 
 networks:

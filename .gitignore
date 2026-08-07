@@ -1,0 +1,23 @@
+# Runtime data volumes — never commit generated/runtime content
+data/var/
+data/eggs/
+data/parts/
+data/downloads/
+data/venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Environment
+.env
+*.env
+
+# Editor
+.vscode/
+.idea/
+*.swp

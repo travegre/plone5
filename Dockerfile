@@ -21,7 +21,7 @@ RUN useradd -m -d /home/plone -s /bin/bash plone && \
 WORKDIR ${PLONE_HOME}
 
 # Copy buildout config and entrypoint (ownership set to plone)
-# Keep buildout.cfg in the image as a convenience but it will be overridden by the mounted file if you mount one.
+# buildout.cfg will be overridden by the bind-mounted file at runtime.
 COPY --chown=plone:plone buildout.cfg ${PLONE_HOME}/buildout.cfg
 COPY --chown=plone:plone entrypoint.sh ${PLONE_HOME}/entrypoint.sh
 RUN chmod +x ${PLONE_HOME}/entrypoint.sh
@@ -36,8 +36,6 @@ RUN python3 -m venv ./venv && \
     ./venv/bin/pip install --no-cache-dir "setuptools==65.7.0" "wheel==0.38.4" "zc.buildout==3.0.1"
 
 EXPOSE 8080
-
-VOLUME ["/opt/instance/var", "/opt/instance/parts", "/opt/instance/eggs", "/opt/instance/downloads", "/opt/instance/src"]
 
 ENTRYPOINT ["/opt/instance/entrypoint.sh"]
 CMD ["/opt/instance/bin/instance", "fg"]
