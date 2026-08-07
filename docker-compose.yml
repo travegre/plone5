@@ -12,7 +12,9 @@ services:
       - ./data/eggs:/opt/instance/eggs
       - ./data/parts:/opt/instance/parts
       - ./data/downloads:/opt/instance/downloads
-      - ./data/venv:/opt/instance/venv
+      # NOTE: venv is intentionally NOT mounted — it is baked into the image.
+      # Mounting ./data/venv here would shadow the image venv and cause
+      # "Permission denied: pyvenv.cfg" errors on first start.
       - ./src:/opt/instance/src
       - ./buildout.cfg:/opt/instance/buildout.cfg:ro
     environment:
