@@ -5,7 +5,8 @@
 PLONE_UID := 1000
 PLONE_GID := 1000
 
-DATA_DIRS := data/var data/eggs data/parts data/downloads
+# Only var needs host-side ownership fix (src is yours already).
+DATA_DIRS := data/var
 
 .PHONY: init up build buildout down clean
 
@@ -32,10 +33,10 @@ up: init
 down:
 	docker-compose down
 
-## Full reset: stop, wipe data dirs, re-init, rebuild image (no cache), and run buildout.
+## Full reset: stop, wipe var, re-init, rebuild image (no cache), and run buildout.
 clean: down
-	@echo "Wiping data directories..."
-	@sudo rm -rf $(DATA_DIRS)
+	@echo "Wiping var directory..."
+	@sudo rm -rf data/var
 	$(MAKE) init
 	docker-compose build --no-cache
 	$(MAKE) buildout

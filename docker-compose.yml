@@ -8,17 +8,15 @@ services:
     ports:
       - "8080:8080"
     volumes:
+      # Only persistent data and source code are bind-mounted.
+      # eggs/parts/downloads stay inside the container to avoid
+      # os.rename() ENOTEMPTY errors on bind-mounted filesystems.
       - ./data/var:/opt/instance/var
-      - ./data/eggs:/opt/instance/eggs
-      - ./data/parts:/opt/instance/parts
-      - ./data/downloads:/opt/instance/downloads
-      # NOTE: venv is intentionally NOT mounted — it is baked into the image.
       - ./src:/opt/instance/src
       - ./buildout.cfg:/opt/instance/buildout.cfg:ro
     environment:
       LANG: "C.UTF-8"
       LC_ALL: "C.UTF-8"
-      # Can be overridden from the host: RUN_BUILDOUT=1 docker-compose up
       RUN_BUILDOUT: "${RUN_BUILDOUT:-0}"
       PLONE_ADMIN_PASSWORD: "admin"
     restart: unless-stopped
