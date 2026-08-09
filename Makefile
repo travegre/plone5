@@ -13,7 +13,7 @@ DATA_DIRS := data/var data/eggs data/parts data/downloads
 init:
 	@echo "Creating data directories owned by $(PLONE_UID):$(PLONE_GID)..."
 	@mkdir -p $(DATA_DIRS)
-	@sudo chown -R $(PLONE_UID):$(PLONE_GID) $(DATA_DIRS)
+	chown -R $(PLONE_UID):$(PLONE_GID) $(DATA_DIRS)
 	@echo "Done."
 
 ## Build the Docker image.
@@ -35,7 +35,7 @@ down:
 ## Full reset: stop, wipe data dirs, re-init, rebuild image (no cache), and run buildout.
 clean: down
 	@echo "Wiping data directories..."
-	@sudo rm -rf $(DATA_DIRS)
+	rm -rf $(DATA_DIRS)
 	$(MAKE) init
 	docker-compose build --no-cache
 	$(MAKE) buildout
