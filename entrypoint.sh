@@ -5,10 +5,6 @@ set -euo pipefail
 # - Ensure a venv with pinned buildout tooling exists.
 # - Run buildout if RUN_BUILDOUT=1 or if parts is missing/empty.
 # - Exec the container command (e.g. /opt/instance/bin/instance fg).
-#
-# Requirements:
-# - Host-mounted volumes (./data/*) must be writable by UID 1000 (plone user).
-#   Run: make init   on the host before first start.
 
 PLONE_HOME="/opt/instance"
 VENV_DIR="${PLONE_HOME}/venv"
@@ -39,13 +35,12 @@ fi
 if [ "${RUN_BUILDOUT:-0}" = "1" ] || [ ! -d "${PARTS_DIR}" ] || [ -z "$(ls -A "${PARTS_DIR}" 2>/dev/null || true)" ]; then
   echo "Running buildout (RUN_BUILDOUT=${RUN_BUILDOUT:-0})..."
 
-  # Wipe the entire eggs directory to eliminate any stale/partial eggs
-  # left by a previously interrupted buildout run. zc.buildout's os.rename()
-  # fails with ENOTEMPTY or AssertionError when partial eggs are present.
-  if [ -d "${EGGS_DIR}" ]; then
-    echo "Wiping eggs directory to prevent stale egg conflicts..."
-    find "${EGGS_DIR}" -mindepth 1 -not -name '.gitkeep' -delete 2>/dev/null || true
-  fi
+  # Wipe eggs and parts dirs completely to eliminate any stale/partial content
+  # left by a previously interrupted buildout run.
+  # zc.buildout's os.rename() fails with ENOTEMPTY when partial eggs exist.
+  echo "Wiping eggs and parts to prevent stale egg conflicts..."
+  rm -rf "${EGGS_DIR}" && mkdir -p "${EGGS_DIR}"
+  rm -rf "${PARTS_DIR}" && mkdir -p "${PARTS_DIR}"
 
   # Fail loudly on buildout error
   "${BUILDOUT_BIN}" -c "${BUILDOUT_CFG}"
