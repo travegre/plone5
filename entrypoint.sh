@@ -25,7 +25,7 @@ if [ ! -x "${BUILDOUT_BIN}" ]; then
   "${VENV_DIR}/bin/pip" install --no-cache-dir \
       "setuptools==65.7.0" \
       "wheel==0.38.4" \
-      "zc.buildout==3.0.1" \
+      "zc.buildout==3.1.0" \
       "collective.recipe.environment"
 fi
 
@@ -35,9 +35,8 @@ fi
 if [ "${RUN_BUILDOUT:-0}" = "1" ] || [ ! -d "${PARTS_DIR}" ] || [ -z "$(ls -A "${PARTS_DIR}" 2>/dev/null || true)" ]; then
   echo "Running buildout (RUN_BUILDOUT=${RUN_BUILDOUT:-0})..."
 
-  # Wipe eggs and parts dirs completely to eliminate any stale/partial content
+  # Wipe eggs and parts completely to eliminate any stale/partial content
   # left by a previously interrupted buildout run.
-  # zc.buildout's os.rename() fails with ENOTEMPTY when partial eggs exist.
   echo "Wiping eggs and parts to prevent stale egg conflicts..."
   rm -rf "${EGGS_DIR}" && mkdir -p "${EGGS_DIR}"
   rm -rf "${PARTS_DIR}" && mkdir -p "${PARTS_DIR}"

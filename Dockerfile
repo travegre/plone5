@@ -29,15 +29,14 @@ RUN chmod +x ${PLONE_HOME}/entrypoint.sh
 USER plone
 
 # Create virtualenv and install pinned buildout tooling only.
-# Keep these in sync with Plone 5.2.14 Python 3 pins:
-# setuptools==65.7.0, zc.buildout==3.0.1, wheel==0.38.4
-# Do NOT run buildout at image build time.
+# zc.buildout 3.1.0 fixes AssertionError in _move_to_eggs_dir_and_compile
+# when installing sdist (.tar.gz) packages like plone.restapi.
 RUN python3 -m venv ./venv && \
     ./venv/bin/pip install "pip==23.2.1" && \
     ./venv/bin/pip install --no-cache-dir \
         "setuptools==65.7.0" \
         "wheel==0.38.4" \
-        "zc.buildout==3.0.1" \
+        "zc.buildout==3.1.0" \
         "collective.recipe.environment"
 
 EXPOSE 8080
