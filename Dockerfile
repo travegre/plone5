@@ -20,24 +20,20 @@ RUN useradd -m -d /home/plone -s /bin/bash plone && \
 
 WORKDIR ${PLONE_HOME}
 
-# Copy buildout config and entrypoint (ownership set to plone)
-# buildout.cfg will be overridden by the bind-mounted file at runtime.
 COPY --chown=plone:plone buildout.cfg ${PLONE_HOME}/buildout.cfg
 COPY --chown=plone:plone entrypoint.sh ${PLONE_HOME}/entrypoint.sh
 RUN chmod +x ${PLONE_HOME}/entrypoint.sh
 
 USER plone
 
-# Create virtualenv and install pinned buildout tooling only.
-# zc.buildout 3.1.0 fixes AssertionError in _move_to_eggs_dir_and_compile
-# when installing sdist (.tar.gz) packages like plone.restapi.
+# zc.buildout 3.1.0 fixes AssertionError with sdist (.tar.gz) packages.
+# collective.recipe.environment removed - not needed, causes recipe loading issues.
 RUN python3 -m venv ./venv && \
     ./venv/bin/pip install "pip==23.2.1" && \
     ./venv/bin/pip install --no-cache-dir \
         "setuptools==65.7.0" \
         "wheel==0.38.4" \
-        "zc.buildout==3.1.0" \
-        "collective.recipe.environment"
+        "zc.buildout==3.1.0"
 
 EXPOSE 8080
 
