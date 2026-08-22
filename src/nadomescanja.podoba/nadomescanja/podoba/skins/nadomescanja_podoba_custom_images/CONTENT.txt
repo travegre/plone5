@@ -1,0 +1,2 @@
+This folder holds image files that are registered for the
+'nadomescanja_podoba' Skin Selection only.
