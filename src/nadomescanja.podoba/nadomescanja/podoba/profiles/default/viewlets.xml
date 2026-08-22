@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!-- This file holds the setup configuration of the viewlet managers
+     for the "nadomescanja_podoba" skin.
+     -->
+
+<object>
+
+  <order manager="plone.portalfooter" skinname="nadomescanja_podoba"
+         based-on="Plone Default">
+<!-- EXAMPLE (UNCOMMENT TO MAKE AVAILABLE):
+    <viewlet name="nadomescanja.someviewlet"
+             insert-before="*" />
+-->
+  </order>
+
+  <hidden manager="plone.portalheader" skinname="nadomescanja_podoba">
+<!-- EXAMPLE (UNCOMMENT TO MAKE AVAILABLE):
+    <viewlet name="plone.global_sections" />
+-->
+  </hidden>
+
+</object>

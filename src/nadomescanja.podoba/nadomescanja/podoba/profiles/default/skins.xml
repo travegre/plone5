@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- This file holds the setup configuration for the portal_skins tool -->
+
+<object name="portal_skins" allow_any="False" cookie_persistence="False"
+   default_skin="nadomescanja_podoba">
+
+ <object name="nadomescanja_podoba_custom_images"
+    meta_type="Filesystem Directory View"
+    directory="nadomescanja.podoba:skins/nadomescanja_podoba_custom_images"/>
+ <object name="nadomescanja_podoba_custom_templates"
+    meta_type="Filesystem Directory View"
+    directory="nadomescanja.podoba:skins/nadomescanja_podoba_custom_templates"/>
+ <object name="nadomescanja_podoba_styles"
+    meta_type="Filesystem Directory View"
+    directory="nadomescanja.podoba:skins/nadomescanja_podoba_styles"/>
+ <object name="nadomescanja_podoba_admin"
+    meta_type="Filesystem Directory View"
+    directory="nadomescanja.podoba:skins/nadomescanja_podoba_admin"/>
+
+ <skin-path name="nadomescanja_podoba" based-on="Plone Default">
+  <layer name="nadomescanja_podoba_custom_images"
+     insert-after="custom"/>
+  <layer name="nadomescanja_podoba_custom_templates"
+     insert-after="nadomescanja_podoba_custom_images"/>
+  <layer name="nadomescanja_podoba_styles"
+     insert-after="nadomescanja_podoba_custom_templates"/>
+  <layer name="nadomescanja_podoba_admin"
+     insert-after="nadomescanja_podoba_styles"/>
+ </skin-path>
+
+</object>
