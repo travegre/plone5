@@ -35,7 +35,7 @@ setup(
     install_requires=[
         'setuptools',
         'plone.api',
-        'xlwt',
+        'openpyxl',
     ],
     tests_require=tests_require,
     extras_require={'tests': tests_require},
