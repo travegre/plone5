@@ -13,8 +13,9 @@ r = container.REQUEST
 session = r.SESSION
 form = r.form
 datum = form["datum"]
+catalog = getToolByName(context, 'portal_catalog')
 
-obj = context.portal.portal_catalog(portal_type = "dezurstvo", id = datum)
+obj = catalog(portal_type = "dezurstvo", id = datum)
 
 if obj:
   r.RESPONSE.redirect('nastavitve/dezurstva/'+ datum)

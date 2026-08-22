@@ -15,7 +15,7 @@ form = r.form
 star = form["star"]
 nov = form["nov"]
 
-msg = context.portal.plone_utils.addPortalMessage
+msg = getToolByName(context, 'plone_utils').addPortalMessage
 
 obj = context.portal_catalog(portal_type = "dezurstvo", id = star)
 obj2 = context.portal_catalog(portal_type = "dezurstvo", id = nov)
@@ -25,7 +25,7 @@ if obj2:
   r.RESPONSE.redirect('/nadomescanja/nadomescanja-1/' + nov + '/edit') 
 elif obj:
   obj = obj[0].getObject()
-  dezurstvo = context['nadomescanja-1'].invokeFactory(                                                                    
+  dezurstvo_id = context['nadomescanja-1'].invokeFactory(
                 type_name='dezurstvo',
                 id=nov,
                 title=nov,
@@ -33,8 +33,9 @@ elif obj:
             )
 
   
-  dezurstvo = context.portal_catalog(portal_type = "dezurstvo", id = nov)[0].getObject()
-  dezurstvo.portal_workflow.doActionFor(dezurstvo, "publish", comment = "publised programmatically")
+  dezurstvo = context['nadomescanja-1'][dezurstvo_id]
+  workflow = getToolByName(dezurstvo, 'portal_workflow')
+  workflow.doActionFor(dezurstvo, "publish", comment = "published programmatically")
   msg(u'Nadomeščanje je bilo uspešno kopirano.')
   r.RESPONSE.redirect('/nadomescanja/nadomescanja-1') 
 else:
